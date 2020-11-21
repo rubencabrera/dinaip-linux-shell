@@ -41,3 +41,35 @@ Uso: dinaIP [OPCIONES] ...
 - -d	Detiene el demonio de dinaIP
 - -h	Despliega esta ayuda
 - -s	Muestra el status del demonio de dinaIP.
+
+### Uso de la imagen de Docker
+
+La imagen de Docker crea un fichero de configuración `dinaip.conf` con las 
+zonas a monitorizar. Puedes añadir nuevas zonas en él también usando variables.
+
+Estas son las variables de entorno que puedes usar:
+
+- `USUARIO`: usuario de Dinahosting
+- `PASSWORD`: contraseña del usuario de Dinahosting
+- `CUENTA`: cuenta de Dinahosting. Creo que siempre es lo mismo que el usuario
+pero lo separé porque pensé que podía no serlo. Otro día las uno en la misma
+varible, `si eso`. 
+- `DOMINIO`: Dominio a monitorizar
+- `ZONAS`: zonas a actualizar, es una cadena de texto con las zonas separadas
+únicamente por comas (no añadas una coma al final).
+- `COMPROBAR_CADA`: número entero. Es 10 por defecto, pero creo que es
+irrelevante en el estado actual porque la imagen muere antes.
+
+En el estado actual, la imagen pasa un tiempo inútil durmiendo porque la
+actualización no sucede lo bastante rápido para cerrar tras iniciar el
+proceso. Yo la uso como un cronjob cada 10 minutos en Kubernetes. 
+
+#### Clonar el repositorio
+
+Para modificar esta imagen y usar las acciones de github para subirla a tu 
+repositorio, puedes clonar este proyecto y cambiar las variables para que
+apunten a tu cuenta.  
+Añade un usuario y un
+[token de acceso](https://docs.docker.com/docker-hub/access-tokens/)
+a tus variables secretas de Github con los nombres `DOCKERHUB_USERNAME` y 
+`DOCKERHUB_TOKEN` 
