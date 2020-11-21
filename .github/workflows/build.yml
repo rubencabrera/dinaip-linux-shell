@@ -25,6 +25,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: rubencabrera/dinaip:latest
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
