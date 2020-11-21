@@ -24,7 +24,9 @@ jobs:
         with:
           context: ./
           file: ./Dockerfile
-          # push: true
+          push: true
+          secrets: |
+            GIT_AUTH_TOKEN=${{ secrets.DOCKERHUB_TOKEN }}
           tags: rubencabrera/dinaip:latest
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
